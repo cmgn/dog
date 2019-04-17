@@ -3,12 +3,14 @@ from src.scanner import scan
 
 
 def test_scanner_throws_error_on_bad_integer():
-    try:
-        scan("5abc")
-    except ValueError:
-        return
-    else:
-        assert False, "must throw a ValueError"
+    tests = ("5abc", "4_", "59595a4949")
+    for test in tests:
+        try:
+            scan(test)
+        except ValueError:
+            return
+        else:
+            assert False, test + " must throw a ValueError"
 
 
 def test_scanner_on_single_literals():
