@@ -8,7 +8,18 @@ def test_scanner_throws_error_on_bad_integer():
         try:
             scan(test)
         except ValueError:
-            return
+            continue
+        else:
+            assert False, test + " must throw a ValueError"
+
+
+def test_scanner_throws_error_on_invalid_char():
+    tests = (".", "$", "#")
+    for test in tests:
+        try:
+            scan(test)
+        except ValueError:
+            continue
         else:
             assert False, test + " must throw a ValueError"
 
