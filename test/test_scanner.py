@@ -14,7 +14,7 @@ def test_scanner_throws_error_on_bad_integer():
 
 
 def test_scanner_throws_error_on_invalid_char():
-    tests = (".", "$", "#")
+    tests = ("£", "$", "@")
     for test in tests:
         try:
             scan(test)
@@ -22,6 +22,12 @@ def test_scanner_throws_error_on_invalid_char():
             continue
         else:
             assert False, test + " must throw a ValueError"
+
+
+def test_scanner_on_special_symbol_characters():
+    tests = ("?", "??", "is-alpha", "+", "-", "*", "/")
+    for given in tests:
+        assert scan(given) == [(TokenType.SYMBOL, given)]
 
 
 def test_scanner_on_single_literals():

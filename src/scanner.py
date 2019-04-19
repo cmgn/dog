@@ -6,6 +6,10 @@ from typing import List, Callable, Dict
 CharPredicate = Callable[[str], bool]
 
 
+def is_symbol_char(char: str) -> bool:
+    return char.isdigit() or char.isalnum() or char in ".?!-+*/^"
+
+
 def scan_predicate(string: str, predicate: CharPredicate, position: int = 0):
     """
     Get the largest prefix of a string that satisfies a predicate.
@@ -56,7 +60,7 @@ def scan_symbol(string: str, position: int = 0):
         token - the symbol token.
         position - the new position.
     """
-    extract, position = scan_predicate(string, str.isalnum, position)
+    extract, position = scan_predicate(string, is_symbol_char, position)
     return (tokens.TokenType.SYMBOL, extract), position
 
 
@@ -89,7 +93,7 @@ def scan(string: str, starting_position: int = 0) -> List[tokens.Token]:
         # Starting position of the current token.
         if char.isdigit():
             token, position = scan_integer(string, position)
-        elif char.isalnum():
+        elif is_symbol_char(char):
             token, position = scan_symbol(string, position)
         elif char in CONSTANT_TOKENS:
             # For now only single character constant tokens exist, so
