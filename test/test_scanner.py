@@ -80,13 +80,15 @@ def test_scanner_on_lists():
             ],
         ),
         (
-            "abc(def)ghi",
+            "(abc(123)ghi)",
             [
+                (TokenType.LEFT_BRACKET, "("),
                 (TokenType.SYMBOL, "abc"),
                 (TokenType.LEFT_BRACKET, "("),
-                (TokenType.SYMBOL, "def"),
+                (TokenType.INTEGER, "123"),
                 (TokenType.RIGHT_BRACKET, ")"),
                 (TokenType.SYMBOL, "ghi"),
+                (TokenType.RIGHT_BRACKET, ")"),
             ],
         ),
     )
